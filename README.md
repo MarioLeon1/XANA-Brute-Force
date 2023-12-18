@@ -24,8 +24,8 @@ Just download and install it
 Once you've download and installed it, just open up the **terminal** again and type
 
 ```
-windscribe start
-windscribe login
+sudo windscribe start
+sudo windscribe login
 ```
 Connect your account and you'll be ready to go!
 
@@ -46,7 +46,5 @@ Write your target's username and let it work :)
 
 XANA uses a wordlist with the 1 000 000 most used passwords in the world, which makes the tool very effective.
 You can still **change the wordlist** entering `attack.py`and changing line 146, where it says `passwords.txt`.
-
-XANA uses a dictionary with the 1 000 000 most used passwords in the world, so believe me it will find any account, but still you can use any wordlist you desire entering the file `attack.py`and changing line 146 where it says `passwords.txt`.
 
 
