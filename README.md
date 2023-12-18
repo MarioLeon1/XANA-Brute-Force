@@ -40,6 +40,8 @@ python attack.py
 
 Write your target's username and let it work :)
 
+![imagen](https://github.com/MarioLeon1/XANA-Brute-Force/assets/80595580/e92ae0e6-8922-421e-9458-2e5505323840)
+
 # About
 
 XANA uses a wordlist with the 1 000 000 most used passwords in the world, which makes the tool very effective.
