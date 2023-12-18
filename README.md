@@ -3,7 +3,7 @@ Instagram Brute Force Tool made for educational purposes. Highly effective!
 
 ## Installing XANA
 
-Set up your distro for the fun
+Open up a terminal and do as always:
 
 ```
 git clone https://github.com/MarioLeon1/XANA-Brute-Force
