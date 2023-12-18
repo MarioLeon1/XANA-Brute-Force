@@ -16,7 +16,7 @@ This program needs the manual installation of Windscribe from your part.
 
 **Windscribe is used for automatic proxy and IP switching while using the tool**
 
-Visit https://esp.windscribe.com/ and create a free account. It'll take you less than 2 minutes
+Visit https://windscribe.com/ and create a free account. It'll take you less than 2 minutes
 Just download and install it
 
 ### Get Windscribe to work
