@@ -1,0 +1,7 @@
+# requirements.txt
+
+python>=3.6
+chromedriver-autoinstaller==0.2.2  # O cualquier versión específica que estés usando
+colorama==0.4.4
+pyvirtualdisplay==2.2
+selenium==4.1.0
